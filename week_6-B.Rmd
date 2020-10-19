@@ -79,21 +79,21 @@ tibble(urn_red = seq(1, 1000, by = 1)) %>%
 **Prompt:** With our posterior probability distribution, we can now forecast outcomes which we have not yet seen. For example, what is the probability of getting more than 3 reds if we sample 20 from the urn, given our posterior? (That is, we are pretending that we don't know the number of red beads in the urn.)
 
 ```{r}
-post <- x %>%
-  filter(paddle_red == 10) %>%
-  group_by(urn_red) %>%
-  summarize(total = n(), .groups = "drop") %>%
-  mutate(probs = total/sum(total)) %>%
-  select(-total)
+#post <- x %>%
+ # filter(paddle_red == 10) %>%
+ # group_by(urn_red) %>%
+  #summarize(total = n(), .groups = "drop") %>%
+  #mutate(probs = total/sum(total)) %>%
+  #select(-total)
 
-post %>%
-  mutate(new_reds = map(urn_red, 
-                        ~ rbinom(n = 100, 
-                                 size = 25, 
-                                 prob = ./1000))) %>%
-  unnest(new_reds) %>%
-  mutate(res = ifelse(new_reds > 3, TRUE, FALSE)) %>%
-  summarize(final = weighted.mean(res, probs))
+#post %>%
+ # mutate(new_reds = map(urn_red, 
+    #                    ~ rbinom(n = 100, 
+    #                             size = 25, 
+    #                             prob = ./1000))) %>%
+  #unnest(new_reds) %>%
+  #mutate(res = ifelse(new_reds > 3, TRUE, FALSE)) %>%
+  #summarize(final = weighted.mean(res, probs))
   
 ```
 
